@@ -1,24 +1,72 @@
 $IndexJs = Get-ChildItem "$PSScriptRoot\index.*.bundle.js"
 $AssetId = [UniversalDashboard.Services.AssetService]::Instance.RegisterAsset($IndexJs.FullName)
 
-function New-UDComponent {
-    <#
-    .SYNOPSIS
-    Creates a new component
-    
-    .DESCRIPTION
-    Creates a new component
-    
-    .PARAMETER Id
-    The ID of this editor
+function New-UD95TextField {
+    param(
+        [Parameter()]
+        [string]$Id = (New-Guid).ToString(),
+        [Parameter()]
+        [string]$Value,
+        [Parameter()]
+        [string]$Placeholder,
+        [Parameter()]
+        [switch]$FullWidth
+    )
 
-    .PARAMETER Text
-    Text for the component
+    @{
+        assetId = $AssetId 
+        isPlugin = $true 
+        type = "ud95textfield"
+        id = $Id
 
-    .EXAMPLE
-    New-UDComponent -Text 'Hello, world!'
-    #>
-    
+        value = $Value
+        placeholder = $Placeholder 
+        fullWidth = $FullWidth.IsPresent
+    }
+}
+
+function New-UD95Button {
+    param(
+        [Parameter()]
+        [string]$Id = (New-Guid).ToString(),
+        [Parameter()]
+        [string]$Text,
+        [Parameter()]
+        [Endpoint]$OnClick
+    )
+
+    $OnClick.Register($Id, $PSCmdlet)
+
+    @{
+        assetId = $AssetId 
+        isPlugin = $true 
+        type = "ud95button"
+        id = $Id
+
+        text = $Text
+        onClick = $OnClick
+    }
+}
+
+function New-UD95List {
+    param(
+        [Parameter()]
+        [string]$Id = (New-Guid).ToString(),
+        [Parameter()]
+        [ScriptBlock]$Content
+    )
+
+    @{
+        assetId = $AssetId 
+        isPlugin = $true 
+        type = "ud95list"
+        id = $Id
+
+        children = & $Content
+    }
+}
+
+function New-UD95ListItem {
     param(
         [Parameter()]
         [string]$Id = (New-Guid).ToString(),
@@ -26,14 +74,12 @@ function New-UDComponent {
         [string]$Text
     )
 
-    End {
-        @{
-            assetId = $AssetId 
-            isPlugin = $true 
-            type = "ud-component"
-            id = $Id
+    @{
+        assetId = $AssetId 
+        isPlugin = $true 
+        type = "ud95listitem"
+        id = $Id
 
-            text = $text
-        }
+        text = $Text
     }
 }
