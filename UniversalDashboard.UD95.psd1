@@ -9,7 +9,7 @@
 @{
 
 # Script module or binary module file associated with this manifest.
-RootModule = 'UniversalDashboard.Component.psm1'
+RootModule = 'UniversalDashboard.UD95.psm1'
 
 # Version number of this module.
 ModuleVersion = '0.0.1'
@@ -18,7 +18,7 @@ ModuleVersion = '0.0.1'
 # CompatiblePSEditions = @()
 
 # ID used to uniquely identify this module
-GUID = '76de2c49-86a9-4b58-9247-edbe35fed09a'
+GUID = '76de2c49-86a9-4b58-9247-edbe35fed091'
 
 # Author of this module
 Author = 'Adam Driscoll'
@@ -30,7 +30,7 @@ CompanyName = 'Unknown'
 Copyright = '(c) adamr. All rights reserved.'
 
 # Description of the functionality provided by this module
-# Description = ''
+Description = 'React95 components for Universal Dashboard.'
 
 # Minimum version of the PowerShell engine required by this module
 # PowerShellVersion = ''
